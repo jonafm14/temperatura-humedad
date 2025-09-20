@@ -144,6 +144,7 @@ src/
    ```
 3. Crea un archivo `.env` en la raíz con las siguientes variables:
    ```
+   SERVER_URL=http://<ip-local>:3000
    SENSOR_URL=http://<ip-del-sensor>:5000/data
    DB_HOST=localhost
    DB_USER=usuario
