@@ -9,13 +9,13 @@ El proyecto está organizado de manera profesional para mostrar buenas práctica
 
 ## 📌 Funcionalidad principal
 
-1. Consulta periódica al sensor (cada 5 minutos) y guarda los datos en la base de datos.  
-2. API REST para consultar:
+1. API REST para consultar:
    - **Valores en vivo** (`/sensor/live`)  
+   - **Temperatura maxima o minima** (`/sensor/tmax`) (`/sensor/tmin`)  
+   - **Humedad maxima o minima** (`/sensor/hmax`) (`/sensor/hmin`)  
    - **Historial del día** (`/sensor/history`)  
    - **Promedios por rango horario** (`/sensor/average`)  
-3. Cron job que automatiza la recolección de datos.  
-4. Posibilidad futura de agregar alertas (Telegram, email, etc.) y dashboard gráfico.
+2. Cron job que automatiza la recolección de datos y envia alertas segun un umbral.
 
 ---
 
@@ -33,10 +33,13 @@ src/
 │   └── sensor.controller.js
 │
 ├── models/               # Definen la estructura de la base de datos y queries
-│   └── measurement.model.js
+│   # Actualmente no se usa, pero están para futuras ampliaciones
 │
 ├── services/             # Lógica de negocio
 │   └── sensor.service.js # Obtiene datos del ESP y los guarda en la DB
+│
+├── repository/             # Lógica encargada de interactuar con la DB
+│   # Actualmente no se usa, pero están para futuras ampliaciones
 │
 ├── routes/               # Definen los endpoints de la API
 │   └── sensor.routes.js
@@ -45,10 +48,10 @@ src/
 │   └── sensor.job.js     # Consulta al sensor cada 5 minutos
 │
 ├── utils/                # Funciones auxiliares y helpers reutilizables
-│   └── response.js
+│   # Actualmente no se usa, pero están para futuras ampliaciones
 │
 └── middlewares/          # Middlewares Express (auth, logging, validaciones, rate limit)
-    # Actualmente no se usan, pero están para futuras ampliaciones
+    # Actualmente no se usa, pero están para futuras ampliaciones
 
 ```
 
@@ -59,9 +62,9 @@ src/
 - **Node.js** → Backend y cron job  
 - **Express** → Servidor y API REST  
 - **MySQL** → Base de datos para histórico de mediciones  
-- **MicroPython** → Servidor embebido en el sensor DHT22  
 - **Axios** → Para hacer peticiones HTTP al sensor  
 - **node-cron** → Para programar consultas periódicas al sensor  
+- **MicroPython** → Servidor embebido en el sensor DHT22  
 
 ---
 
@@ -74,15 +77,3 @@ src/
 - Documentación de cada carpeta para mostrar profesionalismo en entrevistas
 
 ---
-
-Este proyecto puede usarse como ejemplo de cómo organizar un backend Node.js profesional, integrar hardware embebido y exponer datos mediante API REST.
-
-
-## Query utilizada:
-
-CREATE TABLE mediciones (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  temperatura FLOAT NOT NULL,
-  humedad FLOAT NOT NULL,
-  fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
