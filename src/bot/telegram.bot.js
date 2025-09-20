@@ -3,25 +3,26 @@ const sensorService = require('../services/sensor.service');
 const axios = require('axios');
 
 const TOKEN = process.env.TELEGRAM_TOKEN;
+const SERVER_URL = process.env.SERVER_URL;
 const bot = new TelegramBot(TOKEN, { polling: true });
 
 bot.onText(/\/consultar/, async (msg) => {
   const chatId = msg.chat.id;
 
   try {
-    const req = await axios.get(`http://localhost:3002/sensor/live`);
+    const req = await axios.get(`${SERVER_URL}/sensor/live`);
     bot.sendMessage(chatId, `Temperatura: ${req.data.temperatura} °C\nHumedad: ${req.data.humedad} %`);
   } catch (err) {
     bot.sendMessage(chatId, `Error al consultar el sensor: ${err.message}`);
   }
 });
 
-bot.onText(/\/history(?:\s+(\d+))?/, async (msg, match) => {
+bot.onText(/\/historial(?:\s+(\d+))?/, async (msg, match) => {
   const chatId = msg.chat.id;
   const interval = match[1] ? parseInt(match[1]) : 5;
 
   try {
-    const { data } = await axios.get(`http://localhost:3002/sensor/history?interval=${interval}`);
+    const { data } = await axios.get(`${SERVER_URL}/sensor/history?interval=${interval}`);
 
     if (!data.length) {
       return bot.sendMessage(chatId, 'No hay datos para mostrar.');
@@ -45,7 +46,6 @@ bot.onText(/\/history(?:\s+(\d+))?/, async (msg, match) => {
   }
 });
 
-// Temperatura máxima
 bot.onText(/\/tmax(?:\s+(\d{2}\/\d{2}\/\d{4}))?/, async (msg, match) => {
   const chatId = msg.chat.id;
   let date = null;
@@ -67,7 +67,6 @@ bot.onText(/\/tmax(?:\s+(\d{2}\/\d{2}\/\d{4}))?/, async (msg, match) => {
   }
 });
 
-// Temperatura mínima
 bot.onText(/\/tmin(?:\s+(\d{2}\/\d{2}\/\d{4}))?/, async (msg, match) => {
   const chatId = msg.chat.id;
   let date = null;
@@ -89,7 +88,6 @@ bot.onText(/\/tmin(?:\s+(\d{2}\/\d{2}\/\d{4}))?/, async (msg, match) => {
   }
 });
 
-// Humedad máxima
 bot.onText(/\/hmax(?:\s+(\d{2}\/\d{2}\/\d{4}))?/, async (msg, match) => {
   const chatId = msg.chat.id;
   let date = null;
@@ -111,7 +109,6 @@ bot.onText(/\/hmax(?:\s+(\d{2}\/\d{2}\/\d{4}))?/, async (msg, match) => {
   }
 });
 
-// Humedad mínima
 bot.onText(/\/hmin(?:\s+(\d{2}\/\d{2}\/\d{4}))?/, async (msg, match) => {
   const chatId = msg.chat.id;
   let date = null;

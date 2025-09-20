@@ -44,10 +44,9 @@ const getHistory = async (req, res) => {
   }
 };
 
-// Temperatura máxima del día (o fecha indicada)
 const getMaxTemperature = async (req, res) => {
   try {
-    const dateParam = req.query.date; // esperado: YYYY-MM-DD
+    const dateParam = req.query.date;
     const data = await sensorService.getMaxTemperature(dateParam);
     res.json(data);
   } catch (err) {
@@ -58,7 +57,6 @@ const getMaxTemperature = async (req, res) => {
   }
 };
 
-// Temperatura mínima del día (o fecha indicada)
 const getMinTemperature = async (req, res) => {
   try {
     const dateParam = req.query.date;
@@ -72,7 +70,6 @@ const getMinTemperature = async (req, res) => {
   }
 };
 
-// Humedad máxima del día (o fecha indicada)
 const getMaxHumidity = async (req, res) => {
   try {
     const dateParam = req.query.date;
@@ -86,7 +83,6 @@ const getMaxHumidity = async (req, res) => {
   }
 };
 
-// Humedad mínima del día (o fecha indicada)
 const getMinHumidity = async (req, res) => {
   try {
     const dateParam = req.query.date;
@@ -100,4 +96,12 @@ const getMinHumidity = async (req, res) => {
   }
 };
 
-module.exports = { getLive, saveLive, getHistory, getMaxTemperature, getMinTemperature, getMaxHumidity, getMinHumidity };
+module.exports = { 
+  getLive, 
+  saveLive, 
+  getHistory, 
+  getMaxTemperature, 
+  getMinTemperature, 
+  getMaxHumidity, 
+  getMinHumidity 
+};
