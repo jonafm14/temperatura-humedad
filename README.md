@@ -72,7 +72,6 @@ src/
 
 - Separación de capas: rutas → controladores → servicios → modelos  
 - Modularidad para facilitar escalabilidad  
-- Carpeta `middlewares` para futuras validaciones o autenticación  
 - Variables sensibles en `.env`  
 - Documentación de cada carpeta para mostrar profesionalismo en entrevistas
 
