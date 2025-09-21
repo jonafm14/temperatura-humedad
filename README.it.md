@@ -69,6 +69,9 @@ src/
 ├── jobs/                 # Task automatici (cron job)
 │   └── sensor.job.js     # Interroga il sensore ogni 5 minuti e gestisce gli avvisi
 │
+├── bot/                  # Integrazione con Telegram Bot
+│   └── telegram.bot.js
+│
 ├── utils/                # Funzioni ausiliarie e helper riutilizzabili
 │
 └── middlewares/          # Middleware Express (auth, logging, validazioni, rate limit)

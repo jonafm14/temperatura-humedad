@@ -68,6 +68,9 @@ src/
 │
 ├── jobs/                 # Tareas automáticas (cron jobs)
 │   └── sensor.job.js     # Consulta al sensor cada 5 minutos y gestiona alertas
+├
+├── bot/                  # Integración con Telegram Bot
+│   └── telegram.bot.js
 │
 ├── utils/                # Funciones auxiliares y helpers reutilizables
 │
